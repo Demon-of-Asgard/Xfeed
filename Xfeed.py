@@ -3,11 +3,10 @@
 import os 
 import sys
 import yaml
-import pprint
+import platform
 import requests
 import feedparser
 # import sqlite3
-
 # from pylatexenc.latex2text import LatexNodes2Text
 
 class Cmd:
@@ -16,6 +15,12 @@ class Cmd:
     ABSTRACT = "a"
     OPEN = "o"
     EXIT = "q"
+
+
+class Os:
+    TYPE = platform.system()
+    OPEN = 'open' if TYPE == 'Darwin' else 'xdg-open'
+
 
 class Paths:
     PDF = "./pdf"
@@ -86,7 +91,7 @@ def open_file(display_chunk:list,  id:int=None):
         response = requests.get(url_of_id)
         with open(pdf_path, "wb") as f:
             f.write(response.content)
-    os.system(f"xdg-open {pdf_path}")
+    os.system(f"{Os.OPEN} {pdf_path}")
     clear()
     return 
 
