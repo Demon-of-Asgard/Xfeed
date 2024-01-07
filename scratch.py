@@ -44,10 +44,10 @@ query = 'search_query=%s&start=%i&max_results=%i' % (search_query,
 
 # perform a GET request using the base_url and query
 response = urllib.request.urlopen(base_url+query).read()
+# response = urllib.request.urlopen("http://export.arxiv.org/api/query?search_query=cat:astro-ph.HE&sortBy=submittedDate&sortOrder=descending&start=0&max_results=10").read()
 
 # parse the response using feedparser
 feed = feedparser.parse(response)
-print(f"{feed=}")
 
 # print out feed information
 print (f'Feed title:{feed.feed.title}')
@@ -57,12 +57,12 @@ print (f'Feed last updated: {feed.feed.updated}')
 print ('totalResults for this query: {feed.feed.opensearch_totalresults}')
 print (f'itemsPerPage for this query: {feed.feed.opensearch_itemsperpage}')
 print (f'startIndex for this query:{feed.feed.opensearch_startindex}')
-print(f"{feed.entries=}")
+
 # Run through each entry, and print out information
 for entry in feed.entries:
-    print (f'e-print metadata')
-    print (f'arxiv-id: {entry.id.split("/abs/")[-1]}')
-    print (f'Published: {entry.published}')
+    # print (f'e-print metadata')
+    print (f'arxiv-id: {entry.id.split("/abs/")[-1]}', end="\n")
+    # print (f'Published: {entry.published}')
     print (f'Title:  {entry.title}')
     
     # # feedparser v4.1 only grabs the first author

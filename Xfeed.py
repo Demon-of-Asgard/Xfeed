@@ -159,7 +159,8 @@ def main(url:str, identifier:str):
     else:
         with open(os.path.join(Paths.DB, identifier, f"{today}.xml"), "rb") as f:
             response = f.read()
-    
+            
+    response = urllib.request.urlopen(url).read()
     feed = feedparser.parse(response)
     feed_list = [entry for entry in feed.entries]
     clear()
